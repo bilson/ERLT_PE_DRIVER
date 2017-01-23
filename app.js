@@ -8,27 +8,38 @@
  * You should have received a copy of the GNU General Public License along with Foobar. If not, see http://www.gnu.org/licenses/.
  **/
 
-var express = require('express');
-var app = require('express')();
-var server = require('http').Server(app);
-var io = require('socket.io')(server);
+var express;
+var app;
+var server;
+var io;
 var peConnection = require('./modules/pocket_edition_connection.js');
 
-server.listen(3001);
+if( typeof process.versions.electron === 'undefined' || process.versions.electron === null ){
+  express = require('express');
+  app = require('express')();
+  server = require('http').Server(app);
+  io = require('socket.io')(server);
 
-app.get('/', function (req, res) {
-  res.sendfile(__dirname + '/index.html');
-});
+  server.listen(3001);
+  console.log("Open browser in http://localhost:3001");
 
-app.use('/assets', express.static('assets'));
+  app.get('/', function (req, res) {
+    res.sendfile(__dirname + '/index.html');
+  });
 
-app.get('/vue_app.js', function (req, res) {
-  res.sendfile(__dirname + '/vue_app.js');
-});
+  app.use('/assets', express.static('assets'));
 
-app.get('/channels.js', function (req, res) {
-  res.sendfile(__dirname + '/channels.js');
-});
+  app.get('/vue_app.js', function (req, res) {
+    res.sendfile(__dirname + '/vue_app.js');
+  });
+
+  app.get('/channels.js', function (req, res) {
+    res.sendfile(__dirname + '/channels.js');
+  });
+
+} else {
+    io = require('socket.io').listen(3001);
+}
 
 io.on('connection', function (socket) {
   

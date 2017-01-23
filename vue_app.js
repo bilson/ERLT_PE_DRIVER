@@ -8,7 +8,13 @@
  * You should have received a copy of the GNU General Public License along with Foobar. If not, see http://www.gnu.org/licenses/.
  **/
 
-var socket = io.connect(location.protocol + '//' + location.host);
+var socket;
+
+if( typeof process === 'undefined' || process === null ){
+  socket = io.connect(location.protocol + '//' + location.host);
+} else {
+  socket = require('socket.io-client')('http://localhost:3001');
+}
 
 /** logic */
 Vue.component("pe_tracked_timings_container",{

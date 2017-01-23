@@ -1,15 +1,37 @@
 {
-  "name": "pe-driver",
-  "version": "0.0.0",
-  "private": true,
+  "name": "erlt-web-driver",
+  "productName": "EasyRaceLap Timer PE Web Driver",
+  "description": "EasyRaceLap Timer PE Web Driver",
+  "version": "0.1.0",
+  "author": "Airbirds",
+  "main": "main.js",
   "scripts": {
-    "start": "node ./app.js"
+    "start": "node app",
+    "electron": "electron .",
+    "rebuild-mac": "./node_modules/.bin/electron-rebuild -f --version 1.4.15",
+    "rebuild-win": ".\\node_modules\\.bin\\electron-rebuild.cmd -f --version 1.4.15",
+    "rebuild-linux": "./node_modules/.bin/electron-rebuild -f --version 1.4.15",
+    "pack": "build --dir",
+    "dist": "build"
+  },
+  "build": {
+    "appId": "EasyRaceLapTimer PE Web Driver",
+    "electronVersion": "1.4.15",
+    "mac": {
+      "category": "public.app-category.utilities"
+    },
+    "win": {
+      "iconUrl": "https://raw.githubusercontent.com/atom/electron/master/atom/browser/resources/win/atom.ico"
+    }
+  },
+  "devDependencies": {
+    "electron-rebuild": "^1.5.7"
   },
   "dependencies": {
     "body-parser": "~1.15.2",
     "cookie-parser": "~1.4.3",
     "debug": "~2.2.0",
-    "express": "~4.14.0",
+    "express": "^4.14.0",
     "jade": "~1.11.0",
     "morgan": "~1.7.0",
     "request": "^2.79.0",
